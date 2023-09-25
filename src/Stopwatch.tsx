@@ -11,6 +11,8 @@ const Stopwatch = () => {
 
     const handleRestart = () => setTime(0);
 
+    const handleViewCode = () => window.open("https://github.com/JG0328/stopwatch", "_blank");
+
     useEffect(() => {
         let intervalId: number | undefined = undefined;
         if (isRunning) {
@@ -75,6 +77,7 @@ const Stopwatch = () => {
                     <Button
                         variant={"outlined"}
                         startIcon={<GitHubIcon/>}
+                        onClick={handleViewCode}
                     >
                         View Code
                     </Button>
