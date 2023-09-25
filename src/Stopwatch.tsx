@@ -4,7 +4,13 @@ import styles from './Stopwatch.module.scss';
 import {useEffect, useState} from "react";
 
 const Stopwatch = () => {
-    const [time, setTime] = useState(0)
+    const [time, setTime] = useState(() => {
+        const localTime = localStorage.getItem('time');
+        if (localTime !== null) {
+            return Number(localTime);
+        }
+        return 0;
+    })
     const [isRunning, setIsRunning] = useState(false);
 
     const toggleIsRunning = () => setIsRunning(!isRunning);
@@ -17,6 +23,7 @@ const Stopwatch = () => {
         let intervalId: number | undefined = undefined;
         if (isRunning) {
             intervalId = setInterval(() => setTime(time + 100), 1000);
+            localStorage.setItem('time', time.toString());
         }
         return () => clearInterval(intervalId);
     }, [isRunning, time]);
